@@ -1,5 +1,5 @@
 {
-    "name": "swenvanzanten/jwt",
+    "name": "lcobucci/jwt",
     "description": "A simple library to work with JSON Web Token and JSON Web Signature",
     "type": "library",
     "authors": [
