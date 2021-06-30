@@ -9,6 +9,7 @@ namespace Lcobucci\JWT\Signer;
 
 use Lcobucci\JWT\CheckForDeprecations;
 use Lcobucci\JWT\Signature;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
@@ -19,14 +20,14 @@ class BaseSignerTest extends \PHPUnit\Framework\TestCase
     use CheckForDeprecations;
 
     /**
-     * @var BaseSigner|\PHPUnit_Framework_MockObject_MockObject
+     * @var BaseSigner|MockObject
      */
     protected $signer;
 
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->signer = $this->getMockForAbstractClass(BaseSigner::class);
 

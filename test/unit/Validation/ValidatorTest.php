@@ -3,13 +3,13 @@
 namespace Lcobucci\JWT\Validation;
 
 use Lcobucci\JWT\Token;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 /** @coversDefaultClass \Lcobucci\JWT\Validation\Validator */
 final class ValidatorTest extends TestCase
 {
-    /** @var Token&PHPUnit_Framework_MockObject_MockObject */
+    /** @var Token&MockObject */
     private $token;
 
     /** @before */

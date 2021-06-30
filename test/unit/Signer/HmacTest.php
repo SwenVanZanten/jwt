@@ -7,6 +7,9 @@
 
 namespace Lcobucci\JWT\Signer;
 
+
+use PHPUnit\Framework\MockObject\MockObject;
+
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  * @since 0.1.0
@@ -14,14 +17,14 @@ namespace Lcobucci\JWT\Signer;
 class HmacTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var Hmac|\PHPUnit_Framework_MockObject_MockObject
+     * @var Hmac|MockObject
      */
     protected $signer;
 
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->signer = $this->getMockForAbstractClass(Hmac::class);
 

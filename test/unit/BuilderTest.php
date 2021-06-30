@@ -16,7 +16,7 @@ use Lcobucci\JWT\Claim\LesserOrEqualsTo;
 use Lcobucci\JWT\Parsing\Encoder;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\None;
-use Lcobucci\JWT\Token\RegisteredClaimGiven;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -42,14 +42,14 @@ class BuilderTest extends TestCase
     use CheckForDeprecations;
 
     /**
-     * @var Encoder|\PHPUnit_Framework_MockObject_MockObject
+     * @var Encoder|MockObject
      */
     protected $encoder;
 
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->encoder = $this->createMock(Encoder::class);
     }

@@ -70,7 +70,12 @@ class EcdsaTest extends \PHPUnit\Framework\TestCase
 
         $publicKey = openssl_pkey_get_public(self::$ecdsaKeys['public1']->getContent());
 
-        self::assertInternalType('resource', $publicKey);
+        if (class_exists('OpenSSLAsymmetricKey')) {
+            self::assertInstanceOf('OpenSSLAsymmetricKey', $publicKey);
+        } else {
+            self::assertIsResource($publicKey);
+        }
+
         self::assertSame(
             1,
             openssl_verify(
@@ -99,7 +104,11 @@ class EcdsaTest extends \PHPUnit\Framework\TestCase
         $payload    = 'testing';
         $privateKey = openssl_pkey_get_private(self::$ecdsaKeys['private']->getContent());
 
-        self::assertInternalType('resource', $privateKey);
+        if (class_exists('OpenSSLAsymmetricKey')) {
+            self::assertInstanceOf('OpenSSLAsymmetricKey', $privateKey);
+        } else {
+            self::assertIsResource($privateKey);
+        }
 
         $signature = '';
         openssl_sign($payload, $signature, $privateKey, OPENSSL_ALGO_SHA256);

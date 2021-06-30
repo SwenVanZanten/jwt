@@ -9,6 +9,7 @@ namespace Lcobucci\JWT;
 
 use Lcobucci\JWT\Claim\EqualsTo;
 use Lcobucci\JWT\Parsing\Decoder;
+use PHPUnit\Framework\MockObject\MockObject;
 use RuntimeException;
 
 /**
@@ -23,14 +24,14 @@ use RuntimeException;
 class ParserTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var Decoder|\PHPUnit_Framework_MockObject_MockObject
+     * @var Decoder|MockObject
      */
     protected $decoder;
 
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->decoder = $this->createMock(Decoder::class);
     }

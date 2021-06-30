@@ -7,8 +7,8 @@ use Lcobucci\JWT\Parsing\Encoder;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Signer\None;
 use Lcobucci\JWT\Validation\Constraint;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 /**
  * @coversDefaultClass \Lcobucci\JWT\Configuration
@@ -20,22 +20,22 @@ use PHPUnit_Framework_MockObject_MockObject;
  */
 final class ConfigurationTest extends TestCase
 {
-    /** @var Parser&PHPUnit_Framework_MockObject_MockObject */
+    /** @var Parser&MockObject */
     private $parser;
 
-    /** @var Signer&PHPUnit_Framework_MockObject_MockObject */
+    /** @var Signer&MockObject */
     private $signer;
 
-    /** @var Encoder&PHPUnit_Framework_MockObject_MockObject */
+    /** @var Encoder&MockObject */
     private $encoder;
 
-    /** @var Decoder&PHPUnit_Framework_MockObject_MockObject */
+    /** @var Decoder&MockObject */
     private $decoder;
 
-    /** @var Validator&PHPUnit_Framework_MockObject_MockObject */
+    /** @var Validator&MockObject */
     private $validator;
 
-    /** @var Constraint&PHPUnit_Framework_MockObject_MockObject */
+    /** @var Constraint&MockObject */
     private $validationConstraints;
 
     /** @before */

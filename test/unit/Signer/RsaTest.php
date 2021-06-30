@@ -36,7 +36,13 @@ final class RsaTest extends TestCase
         $signature = $signer->sign($payload, self::$rsaKeys['private']);
 
         $publicKey = openssl_pkey_get_public(self::$rsaKeys['public']->getContent());
-        self::assertInternalType('resource', $publicKey);
+
+        if (class_exists('OpenSSLAsymmetricKey')) {
+            self::assertInstanceOf('OpenSSLAsymmetricKey', $publicKey);
+        } else {
+            self::assertIsResource($publicKey);
+        }
+
         self::assertSame(1, openssl_verify($payload, $signature, $publicKey, OPENSSL_ALGO_SHA256));
     }
 
@@ -117,7 +123,12 @@ KEY;
     {
         $payload    = 'testing';
         $privateKey = openssl_pkey_get_private(self::$rsaKeys['private']->getContent());
-        self::assertInternalType('resource', $privateKey);
+
+        if (class_exists('OpenSSLAsymmetricKey')) {
+            self::assertInstanceOf('OpenSSLAsymmetricKey', $privateKey);
+        } else {
+            self::assertIsResource($privateKey);
+        }
 
         $signature = '';
         openssl_sign($payload, $signature, $privateKey, OPENSSL_ALGO_SHA256);

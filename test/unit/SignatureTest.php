@@ -7,6 +7,8 @@
 
 namespace Lcobucci\JWT;
 
+use PHPUnit\Framework\MockObject\MockObject;
+
 /**
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  * @since 0.1.0
@@ -14,14 +16,14 @@ namespace Lcobucci\JWT;
 class SignatureTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var Signer|\PHPUnit_Framework_MockObject_MockObject
+     * @var Signer|MockObject
      */
     protected $signer;
 
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->signer = $this->createMock(Signer::class);
     }

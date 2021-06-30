@@ -26,7 +26,9 @@ abstract class OpenSSL extends BaseSigner
 
             return $signature;
         } finally {
-            openssl_free_key($privateKey);
+            if (is_resource($privateKey)) {
+                openssl_free_key($privateKey);
+            }
         }
     }
 
@@ -34,7 +36,7 @@ abstract class OpenSSL extends BaseSigner
      * @param string $pem
      * @param string $passphrase
      *
-     * @return resource
+     * @return resource|\OpenSSLAsymmetricKey
      */
     private function getPrivateKey($pem, $passphrase)
     {
@@ -54,7 +56,9 @@ abstract class OpenSSL extends BaseSigner
     {
         $publicKey = $this->getPublicKey($key->getContent());
         $result    = openssl_verify($payload, $expected, $publicKey, $this->getAlgorithm());
-        openssl_free_key($publicKey);
+        if (is_resource($publicKey)) {
+            openssl_free_key($publicKey);
+        }
 
         return $result === 1;
     }
@@ -62,7 +66,7 @@ abstract class OpenSSL extends BaseSigner
     /**
      * @param string $pem
      *
-     * @return resource
+     * @return resource|\OpenSSLAsymmetricKey
      */
     private function getPublicKey($pem)
     {
@@ -75,14 +79,20 @@ abstract class OpenSSL extends BaseSigner
     /**
      * Raises an exception when the key type is not the expected type
      *
-     * @param resource|bool $key
+     * @param resource|bool|\OpenSSLAsymmetricKey $key
      *
      * @throws InvalidArgumentException
      */
     private function validateKey($key)
     {
-        if (! is_resource($key)) {
-            throw InvalidKeyProvided::cannotBeParsed(openssl_error_string());
+        if (class_exists('OpenSSLAsymmetricKey')) {
+            if (!$key instanceof \OpenSSLAsymmetricKey) {
+                throw InvalidKeyProvided::cannotBeParsed(openssl_error_string());
+            }
+        } else {
+            if (! is_resource($key)) {
+                throw InvalidKeyProvided::cannotBeParsed(openssl_error_string());
+            }
         }
 
         $details = openssl_pkey_get_details($key);
